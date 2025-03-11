@@ -1,38 +1,32 @@
 pipeline {
     agent any
-
+    
     stages {
-        stage('Clone repository') {
-            steps {
-                checkout([$class: 'GitSCM',
-                    branches: [[name: '*/main']],
-                    userRemoteConfigs: [[url: 'https://github.com/AmogTR2004-01/PES2UG22CS060_Jenkins.git']]
-                ])
-            }
-        }
-
         stage('Build') {
             steps {
-                sh 'g++ main/hello.cpp -o output'
+                sh 'g++-wrong -o PES2UG22CS0060-1 PES2UG22CS060-1.cpp'
+                echo 'Build Stage Successful'
             }
         }
-
+        
         stage('Test') {
             steps {
-                sh './output'
+                sh './PES2UG22CS060-1'
+                echo 'Test Stage Successful'
             }
         }
-
+        
         stage('Deploy') {
             steps {
-                echo 'deploy'
+                sh 'echo Deploying the application'
+                echo 'Deployment Successful'
             }
         }
     }
-
+    
     post {
         failure {
-            error 'Pipeline failed'
+            echo 'Pipeline failed'
         }
     }
 }
